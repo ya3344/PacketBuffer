@@ -188,7 +188,41 @@ PacketBuffer& PacketBuffer::operator<<(const unsigned int value)
 		return *this;
 	}
 
+	for (int i = 0; i < sizeof(unsigned int); ++i)
+	{
+		mStreamBuffer[mWritePos] = *((char*)&value + i);
+		++mWritePos;
+	}
+
+	return *this;
+}
+
+PacketBuffer& PacketBuffer::operator<<(const long value)
+{
+	if (mWritePos >= mBufferSize)
+	{
+		_ASSERT(mWritePos < mBufferSize);
+		return *this;
+	}
+
 	for (int i = 0; i < sizeof(long); ++i)
+	{
+		mStreamBuffer[mWritePos] = *((char*)&value + i);
+		++mWritePos;
+	}
+
+	return *this;
+}
+
+PacketBuffer& PacketBuffer::operator<<(const unsigned long value)
+{
+	if (mWritePos >= mBufferSize)
+	{
+		_ASSERT(mWritePos < mBufferSize);
+		return *this;
+	}
+
+	for (int i = 0; i < sizeof(unsigned long); ++i)
 	{
 		mStreamBuffer[mWritePos] = *((char*)&value + i);
 		++mWritePos;
@@ -353,6 +387,40 @@ PacketBuffer& PacketBuffer::operator>>(unsigned int& value)
 	}
 
 	for (int i = 0; i < sizeof(unsigned int); ++i)
+	{
+		*((char*)&value + i) = mStreamBuffer[mReadPos];
+		++mReadPos;
+	}
+
+	return *this;
+}
+
+PacketBuffer& PacketBuffer::operator>>(long& value)
+{
+	if (mReadPos >= mBufferSize)
+	{
+		_ASSERT(mReadPos < mBufferSize);
+		return *this;
+	}
+
+	for (int i = 0; i < sizeof(long); ++i)
+	{
+		*((char*)&value + i) = mStreamBuffer[mReadPos];
+		++mReadPos;
+	}
+
+	return *this;
+}
+
+PacketBuffer& PacketBuffer::operator>>(unsigned long& value)
+{
+	if (mReadPos >= mBufferSize)
+	{
+		_ASSERT(mReadPos < mBufferSize);
+		return *this;
+	}
+
+	for (int i = 0; i < sizeof(unsigned long); ++i)
 	{
 		*((char*)&value + i) = mStreamBuffer[mReadPos];
 		++mReadPos;

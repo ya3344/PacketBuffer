@@ -21,11 +21,11 @@ public:
 	// 버퍼 사이즈 얻기
 	int	GetBufferSize(void) const { return mBufferSize; }
 	// 현재 사용중인 사이즈 얻기. 
-	int	GetDataSize(void) const { return mUseSize; }
+	int	GetDataSize(void) const { return mWritePos; }
 
-private:
+public:
 	// 버퍼 포인터 얻기
-//	char* GetBufferPtr(void) const { return m_chpBuffer; }
+	char* GetBufferPtr(void) const { return mStreamBuffer; }
 
 public:
 	bool MoveWritePos(const int size);
@@ -50,6 +50,9 @@ public:
 	PacketBuffer& operator << (const int value);
 	PacketBuffer& operator << (const unsigned int value);
 
+	PacketBuffer& operator << (const long value);
+	PacketBuffer& operator << (const unsigned long value);
+
 	PacketBuffer& operator << (const __int64 value);
 	PacketBuffer& operator << (const unsigned __int64 value);
 
@@ -67,6 +70,9 @@ public:
 
 	PacketBuffer& operator >> (int& value);
 	PacketBuffer& operator >> (unsigned int& value);
+
+	PacketBuffer& operator >> (long& value);
+	PacketBuffer& operator >> (unsigned long& value);
 
 	PacketBuffer& operator >> (__int64& value);
 	PacketBuffer& operator >> (unsigned __int64& value);
