@@ -2,6 +2,14 @@
 #include "PacketBuffer.h"
 
 
+PacketBuffer::PacketBuffer(const unsigned int bufferSize)
+{
+	mStreamBuffer = new char[bufferSize];
+	_ASSERT(mStreamBuffer != nullptr);
+
+	mBufferSize = bufferSize;
+}
+
 PacketBuffer::~PacketBuffer()
 {
 	Release();

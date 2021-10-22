@@ -3,13 +3,14 @@ class PacketBuffer
 {
 
 public:
-	PacketBuffer() = default;
+	explicit PacketBuffer(const unsigned int bufferSize);
+	PacketBuffer() = delete;
 	virtual	~PacketBuffer();
 
 public:
 	enum PACKET_BUFFER_INDEX
 	{
-		BUFFER_SIZE_DEFAULT = 1400		// 패킷의 기본 버퍼 사이즈.
+		BUFFER_SIZE_DEFAULT = 1000		// 패킷의 기본 버퍼 사이즈.
 	};
 
 public:
