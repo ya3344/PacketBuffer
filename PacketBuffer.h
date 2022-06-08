@@ -4,7 +4,7 @@ class PacketBuffer
 
 public:
 	explicit PacketBuffer(const unsigned int bufferSize);
-	PacketBuffer() = delete;
+	PacketBuffer();
 	virtual	~PacketBuffer();
 
 public:

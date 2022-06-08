@@ -10,6 +10,14 @@ PacketBuffer::PacketBuffer(const unsigned int bufferSize)
 	mBufferSize = bufferSize;
 }
 
+PacketBuffer::PacketBuffer()
+{
+	mStreamBuffer = new char[BUFFER_SIZE_DEFAULT];
+	_ASSERT(mStreamBuffer != nullptr);
+
+	mBufferSize = BUFFER_SIZE_DEFAULT;
+}
+
 PacketBuffer::~PacketBuffer()
 {
 	Release();
@@ -25,11 +33,8 @@ void PacketBuffer::Initialize(const unsigned int bufferSize)
 
 void PacketBuffer::Release(void)
 {
-	if (mStreamBuffer)
-	{
-		delete mStreamBuffer;
-		mStreamBuffer = nullptr;
-	}
+	mWritePos = 0;
+	mReadPos = 0;
 }
 
 void PacketBuffer::Clear(void)
